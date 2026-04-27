@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" role="img" aria-label="tg-tail — tail -f for Telegram channels">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d1117"/>
+      <stop offset="1" stop-color="#161c2c"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#58a6ff" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#58a6ff" stop-opacity="1"/>
+      <stop offset="1" stop-color="#58a6ff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="300" fill="url(#bg)"/>
+
+  <g font-family="ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace" text-anchor="middle">
+    <text x="600" y="135" font-size="84" font-weight="700">
+      <tspan fill="#6e7681">$ </tspan><tspan fill="#58a6ff">tg-tail</tspan><tspan fill="#e6edf3" dx="6">_</tspan>
+    </text>
+
+    <text x="600" y="190" font-size="26" fill="#c9d1d9" font-weight="500">
+      tail -f for Telegram channels
+    </text>
+
+    <text x="600" y="225" font-size="16" fill="#7d8590" letter-spacing="2">
+      realtime archival → PostgreSQL · S3-compatible media · single worker
+    </text>
+  </g>
+
+  <rect x="500" y="248" width="200" height="2" rx="1" fill="url(#accent)"/>
+</svg>
