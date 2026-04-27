@@ -66,13 +66,16 @@ Comma-separated — each entry is either a numeric channel ID or `@username`. Th
 
 ## Local development
 
+A `docker-compose.yml` ships Postgres and MinIO for local work:
+
 ```sh
+docker compose up -d
 uv sync
 uv run alembic upgrade head
 uv run python -m tg_tail
 ```
 
-You'll need a local Postgres and MinIO (the easiest path is `docker run` for both, or a local `docker-compose.yml` you maintain outside this repo).
+MinIO defaults: endpoint `http://localhost:9000`, console `http://localhost:9001`, user `minio`, password `minio12345`. Postgres: `postgresql+asyncpg://tg_tail:tg_tail@localhost:5432/tg_tail`.
 
 ## Database schema
 
