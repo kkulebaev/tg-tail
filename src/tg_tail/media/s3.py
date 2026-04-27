@@ -2,7 +2,14 @@ from typing import Any
 
 import aioboto3
 import structlog
+from botocore.config import Config
 from botocore.exceptions import ClientError
+
+_BOTOCORE_CONFIG = Config(
+    s3={"addressing_style": "path"},
+    signature_version="s3v4",
+    retries={"max_attempts": 3, "mode": "standard"},
+)
 
 log = structlog.get_logger(__name__)
 
@@ -35,6 +42,7 @@ class S3Client:
             aws_access_key_id=self._access_key_id,
             aws_secret_access_key=self._secret_access_key,
             region_name=self._region,
+            config=_BOTOCORE_CONFIG,
         )
 
     async def ensure_bucket(self) -> None:
