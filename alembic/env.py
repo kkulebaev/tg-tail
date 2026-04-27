@@ -1,21 +1,27 @@
 import asyncio
+import os
 from logging.config import fileConfig
 
 from alembic import context
+from dotenv import load_dotenv
 from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
-from tg_tail.config import get_settings
+from tg_tail.config import normalize_database_url
 from tg_tail.db.models import Base
+
+load_dotenv()
 
 config = context.config
 
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-settings = get_settings()
-config.set_main_option("sqlalchemy.url", settings.database_url)
+database_url = os.environ.get("DATABASE_URL")
+if not database_url:
+    raise RuntimeError("DATABASE_URL is required to run migrations")
+config.set_main_option("sqlalchemy.url", normalize_database_url(database_url))
 
 target_metadata = Base.metadata
 

@@ -2,6 +2,14 @@ from pydantic import Field, SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
+def normalize_database_url(v: str) -> str:
+    if v.startswith("postgres://"):
+        v = "postgresql://" + v.removeprefix("postgres://")
+    if v.startswith("postgresql://") and "+asyncpg" not in v:
+        v = "postgresql+asyncpg://" + v.removeprefix("postgresql://")
+    return v
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=".env",
@@ -42,11 +50,7 @@ class Settings(BaseSettings):
     @field_validator("database_url", mode="after")
     @classmethod
     def ensure_asyncpg_driver(cls, v: str) -> str:
-        if v.startswith("postgres://"):
-            v = "postgresql://" + v.removeprefix("postgres://")
-        if v.startswith("postgresql://") and "+asyncpg" not in v:
-            v = "postgresql+asyncpg://" + v.removeprefix("postgresql://")
-        return v
+        return normalize_database_url(v)
 
 
 def get_settings() -> Settings:
